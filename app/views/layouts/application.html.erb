@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DisaWebRedo</title>
+    <title>D.I.S.A</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+  <%= nav_bar fixed: :top do %>
+      <%= menu_group do %>
+          <%= menu_item "Home", "/" %>
+          <%= menu_item "About Us", '#' %>
+          <%= menu_item "Contact", '#' %>
+      <% end %>
+      <% if current_admin %>
+          <%= menu_item "Log Out", "#" %>
+      <% else %>
+          <%= menu_group pull: :right do %>
+              <%= menu_item "Sign Up", "#" %>
+              <%= form_for @admin, url: session_path(:admin) do |f| -%>
+		  <p><%= f.text_field :email %></p>
+		  <p><%= f.password_field :password %></p>
+		  <p><%= f.submit "Sign in" %></p>
+              <% end -%>
+          <% end %>
+      <% end %>
+  <% end %>
   <body>
-    <%= yield %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      
+      <%= yield %>
   </body>
 </html>
