@@ -1,0 +1,78 @@
+<%= form_for @diagnosed_patient, :html => { :class => "form-horizontal diagnosed_patient" } do |f| %>
+
+  <% if @diagnosed_patient.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@diagnosed_patient.errors.count, "error") %> prohibited this diagnosed_patient from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @diagnosed_patient.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :gender, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :gender, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:gender) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :age, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :age, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:age) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :latitude, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :latitude, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:latitude) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :longitude, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :longitude, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:longitude) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :status, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :status, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:status) %>
+  </div>
+  <div class="form-group">
+      <%= f.label :disease_id, :class => 'control-label col-lg-2' %>
+      <div class="col-lg-10">
+	  <%= f.select :disease_id, options_for_select(@diseases.collect { |disease|
+	      [disease.name.titleize, disease.id] }, 1), {:prompt => 'Select Disease'}, { id: 'disease_select' } %>
+      </div>
+      <%=f.error_span(:disease_id) %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :area, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :area, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:area) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                diagnosed_patients_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>
