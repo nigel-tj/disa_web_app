@@ -16,10 +16,17 @@ class ConditionsController < ApplicationController
   # GET /conditions/new
   def new
     @condition = Condition.new
+    @diseases = Disease.all
   end
 
   # GET /conditions/1/edit
   def edit
+  end
+
+  # GET /conditions/overall
+  def overall
+    @male_data = Condition.where("gender = male AND name=?", params[:name] )
+    ##@female_data = Condition.find_by gender: 'female'
   end
 
   # POST /conditions
