@@ -10,20 +10,13 @@
   <%= nav_bar fixed: :top do %>
       <%= menu_group do %>
           <%= menu_item "Home", "/" %>
+	  <%= menu_item "Diseases", '#' %>
+	  <%= menu_item "Diagnosis", '/conditions' %>
           <%= menu_item "About Us", '#' %>
           <%= menu_item "Contact", '#' %>
       <% end %>
       <% if current_admin %>
-          <%= menu_item "Log Out", "#" %>
-      <% else %>
-          <%= menu_group pull: :right do %>
-              <%= menu_item "Sign Up", "#" %>
-              <%= form_for @admin, url: session_path(:admin) do |f| -%>
-		  <p><%= f.text_field :email %></p>
-		  <p><%= f.password_field :password %></p>
-		  <p><%= f.submit "Sign in" %></p>
-              <% end -%>
-          <% end %>
+        <%= menu_item "Log Out", "#" %>
       <% end %>
   <% end %>
   <body>
