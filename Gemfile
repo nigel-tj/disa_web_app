@@ -57,4 +57,6 @@ gem 'jquery-rails'
 gem "twitter-bootstrap-rails"
 gem 'devise'
 gem 'geocoder'
-#gem 'pg', '0.18.1', group: :production
+group :production do
+  gem 'pg', '0.18.1'	
+end
