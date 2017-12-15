@@ -21,6 +21,14 @@ class DiseasesController < ApplicationController
   def edit
   end
 
+  # GET /diseases/1/overall
+  def overall
+    @disease = Disease.find(params[:id])
+    @name = @disease.name
+    @condition = Condition.find(3)##where("gender = 'male' AND name=?", @name )
+    ##@female_data = Condition.find_by gender: 'female'
+  end
+
   # POST /diseases
   # POST /diseases.json
   def create
