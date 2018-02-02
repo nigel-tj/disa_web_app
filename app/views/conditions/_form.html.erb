@@ -18,15 +18,14 @@
   <div class="form-group">
     <%= f.label :name, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= select_tag "name", options_from_collection_for_select(@diseases, "id", "name"), html_options = {class: "form-control"} %>
-      
+      <%= f.select :disease_id, options_from_collection_for_select(@diseases, "id", "name"), html_options = {class: "form-control"} %>
     </div>
     <%=f.error_span(:name) %>
   </div>
   <div class="form-group">
     <%= f.label :gender, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :gender, :class => 'form-control' %>
+      <%= f.select :gender, options_for_select([["select gender", ""], "male", "female"]), html_options = {class: "form-control"} %>
     </div>
     <%=f.error_span(:gender) %>
   </div>
