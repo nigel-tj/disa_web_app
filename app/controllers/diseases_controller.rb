@@ -27,6 +27,17 @@ class DiseasesController < ApplicationController
     @name = @disease.name
     @male_data = Condition.where(gender: 'male', name: @name )
     @female_data = Condition.where(gender: 'female', name: @name)
+    @female_0_to_2 = Condition.where(gender: 'female', age: 0..2)
+    @male_0_to_2 = Condition.where(gender: 'male', age: 0..2)
+    @female_2_to_5 = Condition.where(gender: 'female', age:  2..5)
+    @male_2_to_5  = Condition.where(gender: 'male', age:  2..5 )
+    @female_5_to_9 = Condition.where(gender: 'female', age:  5..9)
+    @male_5_to_9  = Condition.where(gender: 'male', age:  5..9 )
+    @female_9_to_12 = Condition.where(gender: 'female', age:  9..12)
+    @male_9_to_12  = Condition.where(gender: 'male', age:  9..12 )
+    @female_12_to_15 = Condition.where(gender: 'female', age:  12..15)
+    @male_12_to_15  = Condition.where(gender: 'male', age:  12..15 )
+
   end
 
   # POST /diseases
