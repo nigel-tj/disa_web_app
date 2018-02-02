@@ -25,8 +25,8 @@ class DiseasesController < ApplicationController
   def overall
     @disease = Disease.find(params[:id])
     @name = @disease.name
-    @condition = Condition.find(3)##where("gender = 'male' AND name=?", @name )
-    ##@female_data = Condition.find_by gender: 'female'
+    @male_data = Condition.where(gender: 'male', name: @name )
+    @female_data = Condition.where(gender: 'female', name: @name)
   end
 
   # POST /diseases
