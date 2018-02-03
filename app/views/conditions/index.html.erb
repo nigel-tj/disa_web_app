@@ -14,6 +14,7 @@
       <th><%= model_class.human_attribute_name(:status) %></th>
       <th><%= model_class.human_attribute_name(:area) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:comment) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -21,7 +22,7 @@
     <% @conditions.each do |condition| %>
       <tr>
         <td><%= link_to condition.id, condition_path(condition) %></td>
-        <td><%= condition.name %></td>
+        <td><%= condition.disease_id %></td>
         <td><%= condition.gender %></td>
         <td><%= condition.age %></td>
         <td><%= condition.latitude %></td>
@@ -29,6 +30,7 @@
         <td><%= condition.status %></td>
         <td><%= condition.area %></td>
         <td><%=l condition.created_at %></td>
+	<td><%= condition.comment %></td>
         <td>
           <%= link_to t('.show', :default => t("helpers.links.show")),
                       condition_path(condition), :class => 'btn btn-default btn-xs' %>
