@@ -25,7 +25,7 @@ class DiseasesController < ApplicationController
   def overall
     @disease = Disease.find(params[:id])
     @name = @disease.name
-    @male_data = Condition.where(gender: 'male', name: @name )
+    
     @female_data = Condition.where(gender: 'female', name: @name)
     @female_0_to_2 = Condition.where(gender: 'female', age: 0..2)
     @male_0_to_2 = Condition.where(gender: 'male', age: 0..2)
@@ -37,7 +37,11 @@ class DiseasesController < ApplicationController
     @male_9_to_12  = Condition.where(gender: 'male', age:  9..12 )
     @female_12_to_15 = Condition.where(gender: 'female', age:  12..15)
     @male_12_to_15  = Condition.where(gender: 'male', age:  12..15 )
-
+    
+    @male_map = []
+    Condition.where(disease_id: @disease.id ).each do | data|
+      @male_map << [ data.comment, data.latitude, data.longitude ]
+    end
   end
 
   # POST /diseases
