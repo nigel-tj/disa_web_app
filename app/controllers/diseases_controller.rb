@@ -45,10 +45,12 @@ class DiseasesController < ApplicationController
     @start_of_month = Time.now.beginning_of_month
     @end_of_month = Time.now.end_of_month.day
     puts "HHHHHHHHHHHHHHH-- first day #{@start_of_month} days in the month " + @days_of_month.to_s
-    @end_of_month.times do |i|
-      @start_day = @start_of_month + 1.day
+    @end_of_month.times do |date|
+      @start_day = @start_of_month + date.day
       @end_day = @start_day.end_of_day 
       puts "HHHHHHHHHH------------------ start day #{@start_day} ending #{@end_day} "
+      @number_of_diagnosed = Condition.where("created_at >= ? AND created_at <= ?",@start_day, @end_day ).count
+      puts @number_of_diagnosed
     end
   end
 
