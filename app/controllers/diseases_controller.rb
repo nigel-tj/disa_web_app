@@ -42,6 +42,12 @@ class DiseasesController < ApplicationController
     Condition.where(disease_id: @disease.id ).each do | data|
       @male_map << [ data.comment, data.latitude, data.longitude ]
     end
+    
+    @days_of_month = Time.now.end_of_month.day
+    puts "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH days in the month " + @days_of_month.to_s
+    (1..@days_of_month).each do |i|
+      puts "HHHHHHHHHH------------------ day #{i} of #{@days_of_month}"
+    end
   end
 
   # POST /diseases
