@@ -42,11 +42,13 @@ class DiseasesController < ApplicationController
     Condition.where(disease_id: @disease.id ).each do | data|
       @male_map << [ data.comment, data.latitude, data.longitude ]
     end
-    
-    @days_of_month = Time.now.end_of_month.day
-    puts "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH days in the month " + @days_of_month.to_s
-    (1..@days_of_month).each do |i|
-      puts "HHHHHHHHHH------------------ day #{i} of #{@days_of_month}"
+    @start_of_month = Time.now.beginning_of_month
+    @end_of_month = Time.now.end_of_month.day
+    puts "HHHHHHHHHHHHHHH-- first day #{@start_of_month} days in the month " + @days_of_month.to_s
+    @end_of_month.times do |i|
+      @start_day = @start_of_month + 1.day
+      @end_day = @start_day.end_of_day 
+      puts "HHHHHHHHHH------------------ start day #{@start_day} ending #{@end_day} "
     end
   end
 
