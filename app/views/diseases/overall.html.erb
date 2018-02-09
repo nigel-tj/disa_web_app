@@ -153,36 +153,36 @@ disease_path(@disease),
  function randomNumber(min, max) {
      return Math.random() * (max - min) + min;
  }
+ var dateFormat = 'MMMM DD YYYY';
+ 
  
  function createBar(date, number_diagnosed) {
      //var open = randomNumber(lastClose * .95, lastClose * 1.05);
      //var close = randomNumber(open * .95, open * 1.05);
      //var high = randomNumber(Math.max(open, close), Math.max(open, close) * 1.1);
      //var low = randomNumber(Math.min(open, close) * .9, Math.min(open, close));
+     
      return {
-	 t: date.valueOf(),
+	 t: moment_date.valueOf(),
 	 y: number_diagnosed
      };
  }
  
- var dateFormat = 'MMMM DD YYYY';
- var date = moment('April 01 2017', dateFormat);
- var data = [createBar(date, 30)];
- var data2 = [createBar(date, 30)];
- var labels = [date];
- while (data.length < 30) {
-     date = date.clone().add(1, 'd');
+ var data = <%=raw @male_chart %>;
+ var male_chart = [];
+ //var data2 = [createBar(date, 30)];
+ var labels = [];
+ for (var record in data ) {
+
+ var moment_date = moment(data[record][0]);
+     dateString = moment_date.format(dateFormat);
+     date = moment(dateString, dateFormat)
+     console.log("date= "+date+"   *****   total="+data[record][1])
+
      if (date.isoWeekday() <= 5) {
-	 data.push(createBar(date, data[data.length - 1].y));
-	 labels.push(date);
-	 }
-     }
-while (data2.length < 30) {
-     date = date.clone().add(1, 'd');
-     if (date.isoWeekday() <= 5) {
-	 data2.push(createBar(date, data2[data2.length - 1].y));
-	 labels.push(date);
-	 }
+ 	 male_chart.push(createBar(date, data[record][1]));
+ 	 labels.push(date);
+ 	 }
      }
  var ctx = document.getElementById('myChart').getContext('2d');
  ctx.canvas.width = 1000;
@@ -197,7 +197,7 @@ while (data2.length < 30) {
 	 datasets: [
 	     {
 		 label: "Male",
-		 data: data,
+		 data: male_chart,
 		 type: 'line',
 		 pointRadius: 0,
 		 fill: false,
@@ -205,19 +205,7 @@ while (data2.length < 30) {
 		 borderWidth: 2,
 		 backgroundColor: "rgba(167,105,0,0.4)",
 		 borderColor: "rgb(167, 105, 0)",
-	     },
-	     {
-		 label: "Female ",
-		 data: data2,
-		 type: 'line',
-		 pointRadius: 0,
-		 fill: false,
-		 lineTension: 0,
-		 borderWidth: 2,
-		 backgroundColor: "rgba(225,0,0,0.4)",
-		 borderColor: "red", // The main line color
 	     }
-
 	 ]
 	 },
      // Configuration options go here
