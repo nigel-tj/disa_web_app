@@ -156,12 +156,7 @@ disease_path(@disease),
  var dateFormat = 'MMMM DD YYYY';
  
  
- function createBar(date, number_diagnosed) {
-     //var open = randomNumber(lastClose * .95, lastClose * 1.05);
-     //var close = randomNumber(open * .95, open * 1.05);
-     //var high = randomNumber(Math.max(open, close), Math.max(open, close) * 1.1);
-     //var low = randomNumber(Math.min(open, close) * .9, Math.min(open, close));
-     
+ function createBar(date, number_diagnosed) {     
      return {
 	 t: moment_date.valueOf(),
 	 y: number_diagnosed
@@ -170,28 +165,44 @@ disease_path(@disease),
  
  var data = <%=raw @male_chart %>;
  var male_chart = [];
- //var data2 = [createBar(date, 30)];
+ var female_chart = [];
+ var data2 = <%=raw @female_chart %>;;
  var labels = [];
  for (var record in data ) {
 
- var moment_date = moment(data[record][0]);
-     dateString = moment_date.format(dateFormat);
-     date = moment(dateString, dateFormat)
-     console.log("date= "+date+"   *****   total="+data[record][1])
+   var moment_date = moment(data[record][0]);
+   dateString = moment_date.format(dateFormat);
+   date = moment(dateString, dateFormat)
+   console.log("male date= "+date+"   *****   total="+data[record][1])
 
-     if (date.isoWeekday() <= 5) {
- 	 male_chart.push(createBar(date, data[record][1]));
- 	 labels.push(date);
- 	 }
-     }
+   if (date.isoWeekday() <= 5) {
+      male_chart.push(createBar(date, data[record][1]));
+      labels.push(date);
+   }
+ }
+
+ for (var record in data2 ) {
+
+   var moment_date = moment(data2[record][0]);
+   dateString = moment_date.format(dateFormat);
+   date = moment(dateString, dateFormat)
+   console.log("female date= "+date+"   *****   total="+data2[record][1])
+
+   if (date.isoWeekday() <= 5) {
+      female_chart.push(createBar(date, data2[record][1]));
+      labels.push(date);
+   }
+ }
+
+
  var ctx = document.getElementById('myChart').getContext('2d');
  ctx.canvas.width = 1000;
  ctx.canvas.height = 300;
  var chart = new Chart(ctx, {
-     // The type of chart we want to create
-     type: 'line',
+ // The type of chart we want to create
+ type: 'line',
      
-     // The data for our dataset
+ // The data for our dataset
      data: {
 	 labels: labels,
 	 datasets: [
@@ -205,6 +216,17 @@ disease_path(@disease),
 		 borderWidth: 2,
 		 backgroundColor: "rgba(167,105,0,0.4)",
 		 borderColor: "rgb(167, 105, 0)",
+	     },
+	     {
+		 label: "Female",
+		 data: female_chart,
+		 type: 'line',
+		 pointRadius: 0,
+		 fill: false,
+		 lineTension: 0,
+		 borderWidth: 2,
+		 backgroundColor: "rgba(225,0,0,0.4)",
+		 borderColor: "rgb(230,230,250)",
 	     }
 	 ]
 	 },
